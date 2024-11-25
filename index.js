@@ -6,10 +6,7 @@ const mongoose = require("mongoose");
 const helmet = require("helmet");
 const MongoStore = require("connect-mongo");
 const authRoutes = require("./controllers/authcontrollers");
-const userRoutes = require("./routes/users")
-;const experienceRoutes = require("./routes/experience");
-const skillsRoutes = require("./routes/skill");
-const projectRoutes = require("./routes/projects");
+const userRoutes = require("./routes/userRoutes")
 require("dotenv").config();
 
 // Middlewares
@@ -41,9 +38,6 @@ app.use(
 // Routes
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes)
-app.use("/experience", experienceRoutes);
-app.use("/skill", skillsRoutes);
-app.use("/project", projectRoutes);
 
 // Error Handling
 app.use((err, req, res, next) => {
