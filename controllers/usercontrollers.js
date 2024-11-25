@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const cloudinary = require("../lib/cloudinary");
 
 const getSuggestedConnections = async (req, res) => {
   try {
@@ -42,6 +43,7 @@ const updateProfile = async (req, res) => {
     const allowedFields = [
       "firstName",
       "lastName",
+      "userName",
       "headline",
       "profilePicture",
       "bannerImg",
@@ -58,7 +60,15 @@ const updateProfile = async (req, res) => {
       }
     }
 
-    //todo check for the profile im and banner img => uploaded to cloud memory
+    if (req.body.profilePicture) {
+      const result = await cloudinary.uploader.upload(req.body.profilePicture);
+      updatedData.profilePicture = result.secure_url;
+    }
+
+    if (req.body.bannerImg) {
+      const result = await cloudinary.uploader.upload(req.body.bannerImg);
+      updatedData.bannerImg = result.secure_url;
+    }
   } catch (error) {
     console.error("Error updating profile:", error);
     res.status(500).json({ message: "Server Error", error: error.message });
