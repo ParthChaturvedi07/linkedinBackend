@@ -3,7 +3,6 @@ const app = express();
 const expressSession = require("express-session");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-// const cors = require("cors");
 const helmet = require("helmet");
 const MongoStore = require("connect-mongo");
 const authRoutes = require("./controllers/authcontrollers");
@@ -11,14 +10,11 @@ const userRoutes = require("./routes/users")
 ;const experienceRoutes = require("./routes/experience");
 const skillsRoutes = require("./routes/skill");
 const projectRoutes = require("./routes/projects");
-// const isLoggedIn = require("./middleware/isLoggedIn");
-// const {getCurrentUser} = require("./controllers/authcontrollers")
 require("dotenv").config();
 
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(cors({ origin: 'http://your-frontend-domain.com', credentials: true }));
 app.use(helmet());
 
 // Database Connection
@@ -48,7 +44,6 @@ app.use("/users", userRoutes)
 app.use("/experience", experienceRoutes);
 app.use("/skill", skillsRoutes);
 app.use("/project", projectRoutes);
-// app.get("/me", isLoggedIn, getCurrentUser)
 
 // Error Handling
 app.use((err, req, res, next) => {
